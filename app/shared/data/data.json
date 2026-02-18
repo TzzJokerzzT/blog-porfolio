@@ -1,0 +1,40 @@
+{
+  "basics": {
+    "name": "Alexis Buelvas",
+    "label": "Frontend Developer with 6+ years of experience",
+    "image": "",
+    "email": "alexjesus-4856@hotmail.com",
+    "summary": "Frontend Developer with 6+ years of experience, living in Cartagena, Colombia. I have worked across diverse professional environments: building web and mobile applications, mentoring other developers, and crafting performant user interfaces.",
+    "social": {
+      "github": "https://github.com/alexbuelvas",
+      "linkedin": "https://linkedin.com/in/alexbuelvas",
+      "twitter": "https://x.com/alexbuelvas"
+    },
+    "projects": [
+      {
+        "name": "E-commerce Platform",
+        "description": "Full-featured e-commerce platform with product catalog, shopping cart, checkout flow, and admin dashboard. Built with React, TypeScript, and Node.js with Stripe integration.",
+        "image": "/code.jpg",
+        "technologies": ["React", "TypeScript", "Node.js", "Stripe", "MongoDB"]
+      },
+      {
+        "name": "Restaurant Mobile App",
+        "description": "Cross-platform mobile application for a local restaurant chain. Features menu browsing, table reservations, online ordering, and real-time order tracking.",
+        "image": "/code.jpg",
+        "technologies": ["React Native", "TypeScript", "Firebase", "Expo"]
+      },
+      {
+        "name": "Task Management Dashboard",
+        "description": "Real-time collaborative task management tool with drag-and-drop boards, team assignments, deadline tracking, and analytics dashboard.",
+        "image": "/code.jpg",
+        "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"]
+      },
+      {
+        "name": "Developer Portfolio Builder",
+        "description": "Open-source tool that generates beautiful developer portfolios from a simple JSON configuration. Supports multiple themes and custom domains.",
+        "image": "/code.jpg",
+        "technologies": ["Next.js", "Tailwind CSS", "Vercel", "MDX"]
+      }
+    ]
+  }
+}
