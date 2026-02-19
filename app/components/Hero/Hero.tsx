@@ -7,7 +7,6 @@ import { AboutMe } from "../AboutMe/AboutMe";
 import { Projects } from "../Projects/Projects";
 import { Skills } from "../Skills/Skills";
 import { Contact } from "../Contact/Contact";
-import Link from "next/link";
 
 export function Hero() {
   return (
@@ -26,16 +25,12 @@ export function Hero() {
         </PTextAnimation>
 
         <ContainerAnimated delay={0.8}>
-          <Link href="#projects" className="mt-5">
-            <Button size="lg" color="primary" variant="shadow" radius="lg">
-              View My Work
-            </Button>
-          </Link>
-          <Link href="#contact" className="mt-5">
-            <Button size="lg" color="primary" variant="bordered" radius="lg">
-              Get In Touch
-            </Button>
-          </Link>
+          <Button size="lg" color="primary" variant="shadow" radius="lg" href="#projects" className="mt-5">
+            View My Work
+          </Button>
+          <Button size="lg" color="primary" variant="bordered" radius="lg" href="#contact" className="mt-5">
+            Get In Touch
+          </Button>
         </ContainerAnimated>
 
         <Divider size="lg" />

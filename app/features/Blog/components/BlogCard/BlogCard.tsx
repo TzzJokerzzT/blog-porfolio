@@ -36,11 +36,12 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
             {post.category}
           </motion.span>
           <span className="text-sm text-foreground-secondary">
-            {new Date(post.date).toLocaleDateString("en-US", {
+            {new Intl.DateTimeFormat("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
-            })}
+              timeZone: "UTC",
+            }).format(new Date(post.date))}
           </span>
         </div>
 

@@ -75,11 +75,12 @@ export function BlogPostView({ post }: BlogPostViewProps) {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <time dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString("en-US", {
+              {new Intl.DateTimeFormat("en-US", {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
-              })}
+                timeZone: "UTC",
+              }).format(new Date(post.date))}
             </time>
           </motion.div>
         </motion.header>

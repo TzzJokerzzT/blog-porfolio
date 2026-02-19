@@ -38,8 +38,9 @@ const footerLinks = {
   ],
 };
 
+const currentYear = new Date().getFullYear();
+
 export function Footer() {
-  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative z-10 border-t border-divider bg-background/80 backdrop-blur-sm">

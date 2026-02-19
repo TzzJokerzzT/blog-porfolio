@@ -16,5 +16,8 @@ export interface ButtonProps {
   endContent?: React.ReactNode;
   spinner?: React.ReactNode;
   disableAnimation?: boolean;
+  href?: string;
+  target?: string;
+  rel?: string;
   "data-testid"?: string;
 }

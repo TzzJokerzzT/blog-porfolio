@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Link from "next/link";
 import { getVariant, getRadius, getSize } from "./helper";
 import { ButtonProps } from "./types";
 
@@ -44,6 +45,9 @@ export const Button = ({
   endContent,
   spinner,
   disableAnimation = false,
+  href,
+  target,
+  rel,
   onClick,
   "data-testid": dataTestId,
 }: ButtonProps) => {
@@ -73,6 +77,23 @@ export const Button = ({
       {endContent && <span className="ml-2">{endContent}</span>}
     </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} target={target} rel={rel}>
+        <motion.span
+          role="button"
+          aria-label={ariaLabel}
+          className={`${baseClasses} ${className}`}
+          data-testid={dataTestId}
+          whileHover={disableAnimation ? undefined : { scale: 1.05 }}
+          whileTap={disableAnimation ? undefined : { scale: 0.95 }}
+        >
+          {content}
+        </motion.span>
+      </Link>
+    );
+  }
 
   return (
     <motion.button

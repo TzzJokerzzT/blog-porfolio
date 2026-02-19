@@ -31,8 +31,8 @@ export function Header() {
             className="flex items-center gap-2"
           >
             {navLinks.map((link) => (
-              <Button key={link.name} variant="ghost" radius="lg">
-                <Link href={link.href}>{link.name}</Link>
+              <Button key={link.name} variant="ghost" radius="lg" href={link.href}>
+                {link.name}
               </Button>
             ))}
             <ThemeToggle variant="dropdown" />

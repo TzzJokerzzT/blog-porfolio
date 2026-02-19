@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/shared/components/ThemeProvider";
@@ -21,6 +21,29 @@ export const metadata: Metadata = {
   },
   description:
     "Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Alexis Buelvas Portfolio",
+    title: "Alexis Buelvas - Frontend Developer",
+    description:
+      "Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alexis Buelvas - Frontend Developer",
+    description:
+      "Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

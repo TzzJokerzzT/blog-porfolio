@@ -285,9 +285,9 @@ export function PixelBackground() {
         }}
         transition={{
           duration: 0.2,
-          delay: Math.random() * 20 + 10,
+          delay: 15,
           repeat: Infinity,
-          repeatDelay: Math.random() * 30 + 15,
+          repeatDelay: 25,
         }}
         style={{
           background: 'linear-gradient(90deg, rgba(255,0,0,0.1) 0%, transparent 50%, rgba(0,0,255,0.1) 100%)',

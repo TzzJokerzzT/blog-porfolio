@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { useThemeStore } from '../stores/themeStore';
 
@@ -23,6 +25,7 @@ export const useTheme = () => {
 
   // Aplicar tema inicial después de la hidratación (para SSR)
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     updateSystemTheme(systemTheme);
   }, [updateSystemTheme]);

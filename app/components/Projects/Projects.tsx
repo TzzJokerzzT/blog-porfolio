@@ -7,6 +7,7 @@ import {
 } from "@/shared/components/Animation/TextAnimation";
 import { basics } from "@/shared/data/data.json";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 export function Projects() {
   return (
@@ -24,11 +25,6 @@ export function Projects() {
           <div key={project.name}>
             <motion.div
               className="min-h-[310px] mb-5 group relative bg-background/80 border border-divider rounded-xl overflow-hidden hover:border-primary-500 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10"
-              style={{
-                backgroundImage: `url(${project.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
               whileHover={{
                 scale: 1.02,
                 y: -4,
@@ -39,6 +35,13 @@ export function Projects() {
                 damping: 20,
               }}
             >
+              <Image
+                src={project.image}
+                alt={project.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
               <div className="absolute inset-0 bg-background/90 dark:bg-background/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between">
                 <div>
                   <H3TextAnimation size="sm">{project.name}</H3TextAnimation>
