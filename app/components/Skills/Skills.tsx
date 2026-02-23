@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 
 interface Skill {
   name: string;
@@ -11,39 +12,69 @@ interface Skill {
 
 const skills: Skill[] = [
   // Frontend
-  { name: "React", level: 95, category: "Frontend", icon: "React" },
-  { name: "Next.js", level: 90, category: "Frontend", icon: "Next" },
-  { name: "TypeScript", level: 90, category: "Frontend", icon: "TS" },
-  { name: "JavaScript", level: 95, category: "Frontend", icon: "JS" },
-  { name: "Angular", level: 80, category: "Frontend", icon: "Ng" },
-  { name: "Vue.js", level: 75, category: "Frontend", icon: "Vue" },
+  { name: "React", level: 95, category: "Frontend", icon: "/react.svg" },
+  { name: "Next.js", level: 90, category: "Frontend", icon: "/nextjs.svg" },
+  { name: "TypeScript", level: 90, category: "Frontend", icon: "/typescript.svg" },
+  { name: "JavaScript", level: 95, category: "Frontend", icon: "javascript.svg" },
+  { name: "Angular", level: 80, category: "Frontend", icon: "/angular.svg" },
+  { name: "Vue.js", level: 75, category: "Frontend", icon: "/vue.svg" },
+  { name: "React Router", level: 85, category: "Frontend", icon: "/reactrouter.svg" },
+  { name: "Redux", level: 80, category: "Frontend", icon: "/redux.svg" },
+  { name: "Tanstack Query", level: 75, category: "Frontend", icon: "/tanstack.svg" },
+
   // Styling
-  { name: "Tailwind CSS", level: 92, category: "Styling", icon: "TW" },
-  { name: "CSS/SCSS", level: 90, category: "Styling", icon: "CSS" },
-  { name: "Framer Motion", level: 85, category: "Styling", icon: "FM" },
+  { name: "Tailwind CSS", level: 92, category: "Styling", icon: "/tailwindcss.svg" },
+  { name: "CSS/SCSS", level: 90, category: "Styling", icon: "/css.svg" },
+  { name: "Framer Motion", level: 85, category: "Styling", icon: "/motion.svg" },
   // Backend
-  { name: "Node.js", level: 80, category: "Backend", icon: "Node" },
-  { name: "Express", level: 78, category: "Backend", icon: "Ex" },
-  { name: "MongoDB", level: 70, category: "Backend", icon: "DB" },
+  { name: "Node.js", level: 80, category: "Backend", icon: "/nodejs.svg" },
+  { name: "Express", level: 78, category: "Backend", icon: "/expressjs.svg" },
+  { name: "MongoDB", level: 70, category: "Backend", icon: "/mongodb.svg" },
+  { name: "PostgreSQL", level: 65, category: "Backend", icon: "/postgresql.svg" },
+  // Testing
+  { name: "Jest", level: 75, category: "Testing", icon: "/jest.svg" },
+  { name: "React Testing Library", level: 80, category: "Testing", icon: "/react-testing-library.png" },
+  { name: "Cypress", level: 65, category: "Testing", icon: "/cypress.svg" },
   // Tools
-  { name: "Git", level: 90, category: "Tools", icon: "Git" },
-  { name: "Docker", level: 65, category: "Tools", icon: "Dk" },
-  { name: "AWS", level: 60, category: "Tools", icon: "AWS" },
+  { name: "Git", level: 90, category: "Tools", icon: "/git.svg" },
+  { name: "GitHub", level: 90, category: "Tools", icon: "/github.svg" },
+  { name: "GitLab", level: 80, category: "Tools", icon: "/gitlab.svg" },
+  { name: "Docker", level: 65, category: "Tools", icon: "/docker.svg" },
+  { name: "Jest", level: 75, category: "Tools", icon: "/jest.svg" },
+  { name: "Webpack", level: 70, category: "Tools", icon: "/webpack.svg" },
+  { name: "Vite", level: 80, category: "Tools", icon: "/vite.svg" },
+  { name: "ESLint", level: 85, category: "Tools", icon: "/eslint.svg" },
+  { name: "Prettier", level: 90, category: "Tools", icon: "/prettier.svg" },
+  { name: "BiomeJs", level: 60, category: "Tools", icon: "/biomejs.svg" },
+  { name: "RsPack", level: 70, category: "Tools", icon: "/rsbuild.svg" },
+  { name: "AWS", level: 60, category: "Tools", icon: "/aws.svg" },
+  { name: "Vitest", level: 70, category: "Tools", icon: "/vitest.svg" },
+  { name: "Webpack", level: 75, category: "Tools", icon: "/webpack.svg" },
+  // Package Managers
+  { name: "Bun", level: 65, category: "Package Mannager", icon: "/bun.svg" },
+  { name: "NPM", level: 85, category: "Package Mannager", icon: "/npm.svg" },
+  { name: "PNPM", level: 80, category: "Package Mannager", icon: "/pnpm.svg" },
+  { name: "Yarn", level: 75, category: "Package Mannager", icon: "/yarn.svg" },
   // Mobile
-  { name: "React Native", level: 80, category: "Mobile", icon: "RN" },
+  { name: "React Native", level: 80, category: "Mobile", icon: "/react.svg" },
+  { name: "Expo", level: 75, category: "Mobile", icon: "/expo.svg" },
+  // IDE
+  { name: "NeoVim", level: 70, category: "IDE", icon: "/neovim.svg" },
+  { name: "VS Code", level: 90, category: "IDE", icon: "/vscode.svg" },
+  { name: "Cursor", level: 60, category: "IDE", icon: "/cursor.svg" },
 ];
 
 const categoryColors: Record<string, string> = {
   Frontend:
-    "from-primary-500 to-primary-600",
+    "primary-500",
   Styling:
-    "from-secondary-500 to-secondary-600",
+    "secondary-500",
   Backend:
-    "from-success-500 to-success-600",
+    "success-500",
   Tools:
-    "from-warning-500 to-warning-600",
+    "warning-500",
   Mobile:
-    "from-danger-500 to-danger-600",
+    "danger-500",
 };
 
 const categoryBgColors: Record<string, string> = {
@@ -117,7 +148,6 @@ export function Skills() {
                   .map((skill, index) => (
                     <motion.div
                       key={skill.name}
-                      className="group relative bg-background/80 backdrop-blur-sm border border-divider rounded-xl p-5 hover:border-primary-500 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10"
                       initial={{ opacity: 0, y: 20, scale: 0.95 }}
                       whileInView={{ opacity: 1, y: 0, scale: 1 }}
                       viewport={{ once: true }}
@@ -129,47 +159,19 @@ export function Skills() {
                         damping: 15,
                       }}
                       whileHover={{ scale: 1.03, y: -3 }}
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <motion.div
-                            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${categoryColors[skill.category]} flex items-center justify-center text-white text-xs font-bold`}
-                            whileHover={{ rotate: 5, scale: 1.1 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                          >
-                            {skill.icon}
-                          </motion.div>
-                          <span className="font-semibold text-foreground">
-                            {skill.name}
-                          </span>
-                        </div>
-                        <span className="text-sm font-medium text-foreground-secondary">
-                          {skill.level}%
+                      className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <motion.div
+                          className={`w-10 h-10 rounded-lg border border-${categoryColors[skill.category]} flex items-center justify-center text-white text-xs font-bold`}
+                          whileHover={{ rotate: 5, scale: 1.1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        >
+                          <Image className="aspect-square" src={skill.icon} alt={`${skill.name}`} width={30} height={30} />
+                        </motion.div>
+                        <span className="font-semibold text-foreground">
+                          {skill.name}
                         </span>
                       </div>
-
-                      {/* Progress Bar */}
-                      <div className="w-full h-2 bg-default-200 dark:bg-default-800 rounded-full overflow-hidden">
-                        <motion.div
-                          className={`h-full rounded-full bg-gradient-to-r ${categoryColors[skill.category]}`}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 1,
-                            delay: index * 0.1 + 0.3,
-                            ease: "easeOut",
-                          }}
-                        />
-                      </div>
-
-                      {/* Hover overlay */}
-                      <motion.div
-                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-500/5 to-secondary-500/5 opacity-0 group-hover:opacity-100 pointer-events-none"
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
                     </motion.div>
                   ))}
               </div>
