@@ -1,11 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Experience } from "../../data/experience";
-
-interface ExperienceCardProps {
-  experience: Experience;
-}
+import { ExperienceCardProps } from "./types";
 
 export function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
