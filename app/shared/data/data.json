@@ -15,25 +15,29 @@
         "name": "La Carrera Imagenes",
         "description": "Personal project to generate electonics bills using Alegra API to create bills, also can register products, customer and providers.",
         "image": "/la-carrera-imagenes.png",
-        "technologies": ["Vue", "TypeScript", "Pinia"]
+        "technologies": ["Vue", "TypeScript", "Pinia"],
+        "url": "https://la-carrera-imagenes.vercel.app"
       },
       {
         "name": "Netflix Clone",
         "description": "A responsive web application that mimics the core features of Netflix, including user authentication, movie browsing, and video playback.",
         "image": "/netflix.png",
-        "technologies": ["Angular", "TypeScript", "Firebase"]
+        "technologies": ["Angular", "TypeScript", "Firebase"],
+        "url": "https://netflix-clone-six-mauve.vercel.app"
       },
       {
         "name": "Dino Search",
         "description": "Real-time app to search Github Profile.",
         "image": "/dino-search.png",
-        "technologies": ["React", "TypeScript", "Tailwind CSS", "GitHub API"]
+        "technologies": ["React", "TypeScript", "Tailwind CSS", "GitHub API"],
+        "url": "https://dino-search.vercel.app"
       },
       {
         "name": "Anilist",
         "description": "Real-time app to search and save all information about anime and manga series.",
         "image": "/anilist.png",
-        "technologies": ["Next.js", "Tailwind CSS", "Zustand", "Tanstack Query"]
+        "technologies": ["Next.js", "Tailwind CSS", "Zustand", "Tanstack Query"],
+        "url": "https://anilist-anime-teal.vercel.app"
       }
     ]
   }

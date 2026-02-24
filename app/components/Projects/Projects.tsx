@@ -8,6 +8,7 @@ import {
 import { basics } from "@/shared/data/data.json";
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Projects() {
   return (
@@ -35,38 +36,40 @@ export function Projects() {
                 damping: 20,
               }}
             >
-              <Image
-                src={project.image}
-                alt={project.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-background/90 dark:bg-background/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between">
-                <div>
-                  <H3TextAnimation size="sm">{project.name}</H3TextAnimation>
-                  <PTextAnimation size="sm" align="left">
-                    {project.description}
-                  </PTextAnimation>
-                </div>
-                {"technologies" in project && (
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {(
-                      project as typeof project & { technologies: string[] }
-                    ).technologies.map((tech: string) => (
-                      <motion.span
-                        key={tech}
-                        className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
+              <Link href={project.url} target="_blank" className="absolute inset-0">
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-background/90 dark:bg-background/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between">
+                  <div>
+                    <H3TextAnimation size="sm">{project.name}</H3TextAnimation>
+                    <PTextAnimation size="sm" align="left">
+                      {project.description}
+                    </PTextAnimation>
                   </div>
-                )}
-              </div>
+                  {"technologies" in project && (
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {(
+                        project as typeof project & { technologies: string[] }
+                      ).technologies.map((tech: string) => (
+                        <motion.span
+                          key={tech}
+                          className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
             </motion.div>
           </div>
         ))}
