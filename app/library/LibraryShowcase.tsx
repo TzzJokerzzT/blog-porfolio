@@ -22,6 +22,7 @@ import {
   InlineDivider,
 } from "@/shared/components/Divider/Divider";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
+import Link from "next/link";
 
 /* ─────────────────────────────────────────────
    Constants
@@ -181,6 +182,11 @@ export default function LibraryShowcase() {
           A live showcase of every reusable UI component in this design system.
           Interact with them, inspect their variants, sizes, and states.
         </p>
+        <div className="flex justify-center mt-4">
+          <p className="text-xl text-foreground-secondary mr-2">
+            If you want to use this libary click that 👉 </p>
+          <Link className="text-xl text-primary-500 hover:text-primary-300 transition duration-200" href="https://www.npmjs.com/package/@lzzjokerzzl/react-ui-components" target="_blank">NPM package</Link>
+        </div>
       </motion.div>
 
       {/* ── Mobile nav (horizontal scroll) ─────────── */}
@@ -190,11 +196,10 @@ export default function LibraryShowcase() {
             <a
               key={s.id}
               href={`#${s.id}`}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                activeSection === s.id
-                  ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25"
-                  : "bg-default-100 dark:bg-default-800 text-default-700 dark:text-default-300"
-              }`}
+              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeSection === s.id
+                ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25"
+                : "bg-default-100 dark:bg-default-800 text-default-700 dark:text-default-300"
+                }`}
             >
               {s.label}
             </a>
@@ -211,11 +216,10 @@ export default function LibraryShowcase() {
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === s.id
-                    ? "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border-l-3 border-primary-500"
-                    : "text-foreground-secondary hover:text-foreground hover:bg-default-100 dark:hover:bg-default-800"
-                }`}
+                className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeSection === s.id
+                  ? "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border-l-3 border-primary-500"
+                  : "text-foreground-secondary hover:text-foreground hover:bg-default-100 dark:hover:bg-default-800"
+                  }`}
               >
                 {s.label}
               </a>

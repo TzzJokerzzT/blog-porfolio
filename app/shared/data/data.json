@@ -6,34 +6,34 @@
     "email": "alexjesus-4856@hotmail.com",
     "summary": "Frontend Developer with 6+ years of experience, living in Cartagena, Colombia. I have worked across diverse professional environments: building web and mobile applications, mentoring other developers, and crafting performant user interfaces.",
     "social": {
-      "github": "https://github.com/alexbuelvas",
-      "linkedin": "https://linkedin.com/in/alexbuelvas",
-      "twitter": "https://x.com/alexbuelvas"
+      "github": "https://github.com/TzzJokerzzT",
+      "linkedin": "https://linkedin.com/in/alexis-buelvas",
+      "twitter": "https://x.com/Alex_Buelvas92"
     },
     "projects": [
       {
-        "name": "E-commerce Platform",
-        "description": "Full-featured e-commerce platform with product catalog, shopping cart, checkout flow, and admin dashboard. Built with React, TypeScript, and Node.js with Stripe integration.",
-        "image": "/code.jpg",
-        "technologies": ["React", "TypeScript", "Node.js", "Stripe", "MongoDB"]
+        "name": "La Carrera Imagenes",
+        "description": "Personal project to generate electonics bills using Alegra API to create bills, also can register products, customer and providers.",
+        "image": "/la-carrera-imagenes.png",
+        "technologies": ["Vue", "TypeScript", "Pinia"]
       },
       {
-        "name": "Restaurant Mobile App",
-        "description": "Cross-platform mobile application for a local restaurant chain. Features menu browsing, table reservations, online ordering, and real-time order tracking.",
-        "image": "/code.jpg",
-        "technologies": ["React Native", "TypeScript", "Firebase", "Expo"]
+        "name": "Netflix Clone",
+        "description": "A responsive web application that mimics the core features of Netflix, including user authentication, movie browsing, and video playback.",
+        "image": "/netflix.png",
+        "technologies": ["Angular", "TypeScript", "Firebase"]
       },
       {
-        "name": "Task Management Dashboard",
-        "description": "Real-time collaborative task management tool with drag-and-drop boards, team assignments, deadline tracking, and analytics dashboard.",
-        "image": "/code.jpg",
-        "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"]
+        "name": "Dino Search",
+        "description": "Real-time app to search Github Profile.",
+        "image": "/dino-search.png",
+        "technologies": ["React", "TypeScript", "Tailwind CSS", "GitHub API"]
       },
       {
-        "name": "Developer Portfolio Builder",
-        "description": "Open-source tool that generates beautiful developer portfolios from a simple JSON configuration. Supports multiple themes and custom domains.",
-        "image": "/code.jpg",
-        "technologies": ["Next.js", "Tailwind CSS", "Vercel", "MDX"]
+        "name": "Anilist",
+        "description": "Real-time app to search and save all information about anime and manga series.",
+        "image": "/anilist.png",
+        "technologies": ["Next.js", "Tailwind CSS", "Zustand", "Tanstack Query"]
       }
     ]
   }
