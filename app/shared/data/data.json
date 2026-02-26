@@ -12,6 +12,13 @@
     },
     "projects": [
       {
+        "name": "Dashboard",
+        "description": "A dashboard to manage notes, expenses, calendar and todos list.",
+        "image": "/dashboard.png",
+        "technologies": ["Vue", "TypeScript", "Tailwind CSS", "Pinia", "Vue Router", "Vue Echarts" ],
+        "url": "https://personal-dashboard-pied.vercel.app"
+      },
+      {
         "name": "La Carrera Imagenes",
         "description": "Personal project to generate electonics bills using Alegra API to create bills, also can register products, customer and providers.",
         "image": "/la-carrera-imagenes.png",
