@@ -45,6 +45,14 @@
         "image": "/anilist.png",
         "technologies": ["Next.js", "Tailwind CSS", "Zustand", "Tanstack Query"],
         "url": "https://anilist-anime-teal.vercel.app"
+      },
+      {
+        "name": "Startup Landing Page Template",
+        "description": "Migration form HTML, CSS and Javascript template made by https://cruip.com/solid/ to Vue 3 for free use.",
+        "image": "/solid-template.png",
+        "technologies": ["Vue", "Vue Router", "Pinia", "TypeScript", "Vite", "Anime.js", "ScrollRevelal"],
+        "url": "https://solid-vue-langin-page.vercel.app/"
+
       }
     ]
   }
