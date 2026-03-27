@@ -2,14 +2,22 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import type { BlogPost } from "@/features/Blog/data/posts";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { Button } from "@/shared/components/Button/Button";
+import type { Post, PostAuthor } from "@/shared/types/api.types";
 
 interface BlogPostViewProps {
-  post: BlogPost;
+  post: Post;
 }
 
 export function BlogPostView({ post }: BlogPostViewProps) {
+  const { isAuthenticated } = useAuth();
   const paragraphs = post.content.split("\n\n").filter(Boolean);
+
+  const authorName =
+    typeof post.author === "string"
+      ? post.author
+      : (post.author as PostAuthor).name;
 
   return (
     <article className="py-20 px-4 sm:px-6 lg:px-8">
@@ -19,7 +27,7 @@ export function BlogPostView({ post }: BlogPostViewProps) {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className="mb-8 flex items-center justify-between"
         >
           <Link
             href="/blog"
@@ -41,6 +49,21 @@ export function BlogPostView({ post }: BlogPostViewProps) {
             </svg>
             Back to Blog
           </Link>
+
+          {/* Acciones de edición solo para autenticados */}
+          {isAuthenticated && (
+            <div className="flex items-center gap-2">
+              <Button
+                href={`/blog/editar/${post.slug}`}
+                color="default"
+                variant="bordered"
+                radius="lg"
+                size="sm"
+              >
+                Editar
+              </Button>
+            </div>
+          )}
         </motion.div>
 
         {/* Header */}
@@ -82,6 +105,11 @@ export function BlogPostView({ post }: BlogPostViewProps) {
                 timeZone: "UTC",
               }).format(new Date(post.date))}
             </time>
+            {authorName && (
+              <span className="text-foreground-secondary/70">
+                por {authorName}
+              </span>
+            )}
           </motion.div>
         </motion.header>
 
@@ -100,13 +128,14 @@ export function BlogPostView({ post }: BlogPostViewProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          {paragraphs.map((paragraph: string, index: number) => {
+          {paragraphs.map((paragraph: string) => {
             const trimmed = paragraph.trim();
+            const key = trimmed.slice(0, 60);
 
             if (trimmed.startsWith("## ")) {
               return (
                 <motion.h2
-                  key={`heading-${index}`}
+                  key={`heading-${key}`}
                   className="text-2xl sm:text-3xl font-bold text-foreground mt-10 mb-4"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -123,15 +152,15 @@ export function BlogPostView({ post }: BlogPostViewProps) {
                 .split("\n")
                 .filter((l: string) => l.startsWith("- "));
               return (
-                <ul key={`list-${index}`} className="space-y-2 ml-4">
-                  {items.map((item: string, itemIndex: number) => (
+                <ul key={`list-${key}`} className="space-y-2 ml-4">
+                  {items.map((item: string) => (
                     <motion.li
-                      key={`item-${index}-${itemIndex}`}
+                      key={`item-${item.slice(0, 40)}`}
                       className="flex items-start gap-2 text-foreground-secondary leading-relaxed"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: itemIndex * 0.1 }}
+                      transition={{ delay: 0.1 }}
                     >
                       <motion.span
                         className="inline-block w-1.5 h-1.5 bg-primary-500 rounded-full mt-2.5 flex-shrink-0"
@@ -139,7 +168,6 @@ export function BlogPostView({ post }: BlogPostViewProps) {
                         transition={{
                           duration: 2,
                           repeat: Infinity,
-                          delay: itemIndex * 0.2,
                         }}
                       />
                       <span>{item.replace("- ", "")}</span>
@@ -151,7 +179,7 @@ export function BlogPostView({ post }: BlogPostViewProps) {
 
             return (
               <motion.p
-                key={`para-${index}`}
+                key={`para-${key}`}
                 className="text-lg text-foreground-secondary leading-relaxed"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
