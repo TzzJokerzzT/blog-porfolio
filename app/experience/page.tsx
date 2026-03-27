@@ -7,6 +7,6 @@ export const metadata: Metadata = {
     "Professional experience and career history of Alexis Buelvas as a Frontend Developer.",
 };
 
-export default function Page() {
+export default function ExperiencePage() {
   return <ExperienceView />;
 }

@@ -2,10 +2,10 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import type { BlogPost } from "../../data/posts";
+import type { Post } from "@/shared/types/api.types";
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: Post;
   index?: number;
 }
 
