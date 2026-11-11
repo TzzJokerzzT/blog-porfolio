@@ -1,32 +1,10 @@
-import Image from "next/image";
-import { Hero } from "./components/Hero/Hero";
-import { ContainerAnimated } from "./shared/components/Animation/ContainerAnimation";
+import { Home } from "@/features/Home";
 
 export const metadata = {
-  title: "Home",
   description:
-    "Alexis Buelvas — Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+    "Personal blog by Alexis Buelvas about frontend development, React, Next.js, TypeScript, and modern web technologies.",
 };
 
-export default function Home() {
-  return (
-    <div className="z-10">
-      <div className="w-full z-20">
-        <ContainerAnimated>
-          <Image
-            src="/image.jpeg"
-            alt="code"
-            width={1920}
-            height={800}
-            className="w-full h-[200px] object-cover"
-            priority
-          />
-        </ContainerAnimated>
-      </div>
-      {/* Hero Section */}
-      <div className="z-20">
-        <Hero />
-      </div>
-    </div>
-  );
+export default function HomePage() {
+  return <Home />;
 }

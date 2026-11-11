@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import { LoginSubmitButton } from "./LoginSubmitButton";
 
 interface LoginFormProps {
@@ -12,30 +11,19 @@ interface LoginFormProps {
 
 export function LoginForm({ onSubmit, isLoading, error }: LoginFormProps) {
   const inputClass =
-    "w-full px-4 py-3 rounded-lg bg-input border border-divider text-foreground placeholder:text-foreground-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all";
-  const labelClass = "block text-sm font-medium text-foreground mb-2";
+    "w-full rounded-md border border-divider bg-input px-3 py-2.5 text-foreground placeholder:text-foreground-secondary/60 transition-colors focus:outline-none focus:border-accent";
+  const labelClass = "mb-1.5 block text-sm font-medium text-foreground";
 
   return (
-    <motion.form
-      className="space-y-5"
-      onSubmit={onSubmit}
-      noValidate
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <AnimatePresence>
-        {error && (
-          <motion.div
-            className="px-4 py-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-          >
-            {error}
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <form className="space-y-5" onSubmit={onSubmit} noValidate>
+      {error && (
+        <div
+          role="alert"
+          className="rounded-md border border-danger-300 bg-danger-50 px-4 py-3 text-sm text-danger-700"
+        >
+          {error}
+        </div>
+      )}
 
       <div>
         <label htmlFor="email" className={labelClass}>
@@ -48,13 +36,13 @@ export function LoginForm({ onSubmit, isLoading, error }: LoginFormProps) {
           autoComplete="email"
           required
           className={inputClass}
-          placeholder="tu@email.com"
+          placeholder="you@example.com"
         />
       </div>
 
       <div>
         <label htmlFor="password" className={labelClass}>
-          Contraseña
+          Password
         </label>
         <input
           id="password"
@@ -68,6 +56,6 @@ export function LoginForm({ onSubmit, isLoading, error }: LoginFormProps) {
       </div>
 
       <LoginSubmitButton isLoading={isLoading} />
-    </motion.form>
+    </form>
   );
 }

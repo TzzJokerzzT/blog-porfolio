@@ -1,8 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/shared/components/Button/Button";
 import { postsApi } from "@/shared/services/api.service";
 import { useAuth } from "@/shared/hooks/useAuth";
@@ -102,252 +102,203 @@ export function CreatePost() {
       setIsLoading(false);
     }
   };
-
   const inputClass =
-    "w-full px-4 py-3 rounded-lg bg-input border border-divider text-foreground placeholder:text-foreground-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all";
-  const labelClass = "block text-sm font-medium text-foreground mb-2";
-  const errorClass = "mt-1 text-xs text-red-500";
+    "w-full rounded-md border border-divider bg-input px-3 py-2.5 text-foreground placeholder:text-foreground-secondary/60 transition-colors focus:outline-none focus:border-accent";
+  const labelClass = "mb-1.5 block text-sm font-medium text-foreground";
+  const hintClass = "font-normal text-foreground-secondary";
+  const errorClass = "mt-1.5 text-sm text-danger-600";
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <motion.div
-          className="mb-10"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <Button
-            href="/blog"
-            variant="ghost"
-            color="default"
-            radius="lg"
-            size="sm"
-            className="mb-6"
-          >
-            ← Volver al Blog
-          </Button>
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            Crear nuevo post
-          </h1>
-          <p className="text-foreground-secondary">
-            Completa todos los campos para publicar un nuevo artículo.
-          </p>
-        </motion.div>
+    <div className="page-shell py-16">
+      <Link
+        href="/blog"
+        className="ui-meta text-foreground-secondary transition-colors hover:text-accent"
+      >
+        All posts
+      </Link>
 
-        {/* Error global */}
-        <AnimatePresence>
-          {error && (
-            <motion.div
-              className="mb-6 px-4 py-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-            >
-              {error}
-            </motion.div>
+      <header className="enter mt-6">
+        <h1 className="font-serif text-[clamp(2rem,5vw,2.6rem)] font-medium leading-tight tracking-tight text-foreground">
+          New post
+        </h1>
+        <p className="mt-3 max-w-[58ch] text-foreground-secondary">
+          Fill in every required field. Markdown works in the content.
+        </p>
+      </header>
+
+      {error && (
+        <div
+          role="alert"
+          className="mt-8 rounded-md border border-danger-300 bg-danger-50 px-4 py-3 text-sm text-danger-700"
+        >
+          {error}
+        </div>
+      )}
+
+      <form className="mt-10 space-y-6" onSubmit={handleSubmit} noValidate>
+        <div>
+          <label htmlFor="title" className={labelClass}>
+            Title *
+          </label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            className={inputClass}
+            value={title}
+            onChange={(e) => handleTitleChange(e.target.value)}
+            required
+          />
+          {fieldErrors.title && <p className={errorClass}>{fieldErrors.title}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="slug" className={labelClass}>
+            Slug * <span className={hintClass}>(post URL)</span>
+          </label>
+          <input
+            id="slug"
+            name="slug"
+            type="text"
+            className={inputClass}
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+            required
+          />
+          {fieldErrors.slug && <p className={errorClass}>{fieldErrors.slug}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="excerpt" className={labelClass}>
+            Summary *
+          </label>
+          <textarea
+            id="excerpt"
+            name="excerpt"
+            className={`${inputClass} resize-none`}
+            rows={3}
+            value={excerpt}
+            onChange={(e) => setExcerpt(e.target.value)}
+            maxLength={500}
+            required
+          />
+          {fieldErrors.excerpt && (
+            <p className={errorClass}>{fieldErrors.excerpt}</p>
           )}
-        </AnimatePresence>
+        </div>
 
-        {/* Form */}
-        <motion.form
-          className="space-y-6 p-8 rounded-xl bg-background/80 backdrop-blur-sm border border-divider"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          onSubmit={handleSubmit}
-          noValidate
-        >
-          {/* Título */}
+        <div>
+          <label htmlFor="content" className={labelClass}>
+            Content * <span className={hintClass}>(Markdown: ## heading, - list)</span>
+          </label>
+          <textarea
+            id="content"
+            name="content"
+            className={`${inputClass} resize-y font-mono text-sm`}
+            rows={16}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+          />
+          {content && (
+            <p className="ui-meta mt-1.5 text-foreground-secondary">
+              Estimated read time: {estimateReadTime(content)}
+            </p>
+          )}
+          {fieldErrors.content && (
+            <p className={errorClass}>{fieldErrors.content}</p>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="title" className={labelClass}>
-              Título *
+            <label htmlFor="category" className={labelClass}>
+              Category *
             </label>
             <input
-              id="title"
-              name="title"
+              id="category"
+              name="category"
               type="text"
               className={inputClass}
-              value={title}
-              onChange={(e) => handleTitleChange(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               required
             />
-            {fieldErrors.title && (
-              <p className={errorClass}>{fieldErrors.title}</p>
+            {fieldErrors.category && (
+              <p className={errorClass}>{fieldErrors.category}</p>
             )}
           </div>
-
-          {/* Slug */}
           <div>
-            <label htmlFor="slug" className={labelClass}>
-              Slug *{" "}
-              <span className="text-foreground-secondary/60 font-normal">
-                (URL del post)
-              </span>
+            <label htmlFor="date" className={labelClass}>
+              Date *
             </label>
             <input
-              id="slug"
-              name="slug"
-              type="text"
+              id="date"
+              name="date"
+              type="date"
               className={inputClass}
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               required
             />
-            {fieldErrors.slug && (
-              <p className={errorClass}>{fieldErrors.slug}</p>
-            )}
+            {fieldErrors.date && <p className={errorClass}>{fieldErrors.date}</p>}
           </div>
+        </div>
 
-          {/* Excerpt */}
-          <div>
-            <label htmlFor="excerpt" className={labelClass}>
-              Resumen *
-            </label>
-            <textarea
-              id="excerpt"
-              name="excerpt"
-              className={`${inputClass} resize-none`}
-              rows={3}
-              value={excerpt}
-              onChange={(e) => setExcerpt(e.target.value)}
-              maxLength={500}
-              required
-            />
-            {fieldErrors.excerpt && (
-              <p className={errorClass}>{fieldErrors.excerpt}</p>
-            )}
-          </div>
+        <div>
+          <label htmlFor="tags" className={labelClass}>
+            Tags <span className={hintClass}>(comma separated)</span>
+          </label>
+          <input
+            id="tags"
+            name="tags"
+            type="text"
+            className={inputClass}
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+          />
+        </div>
 
-          {/* Contenido */}
-          <div>
-            <label htmlFor="content" className={labelClass}>
-              Contenido *{" "}
-              <span className="text-foreground-secondary/60 font-normal">
-                (Markdown: ## Heading, - lista)
-              </span>
-            </label>
-            <textarea
-              id="content"
-              name="content"
-              className={`${inputClass} resize-y font-mono text-sm`}
-              rows={16}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-            />
-            {content && (
-              <p className="mt-1 text-xs text-foreground-secondary/60">
-                Tiempo estimado: {estimateReadTime(content)}
-              </p>
-            )}
-            {fieldErrors.content && (
-              <p className={errorClass}>{fieldErrors.content}</p>
-            )}
-          </div>
+        <div className="flex items-center gap-3">
+          <input
+            id="featured"
+            name="featured"
+            type="checkbox"
+            className="h-4 w-4 cursor-pointer rounded border-divider accent-accent"
+            checked={featured}
+            onChange={(e) => setFeatured(e.target.checked)}
+          />
+          <label
+            htmlFor="featured"
+            className="cursor-pointer select-none text-sm text-foreground"
+          >
+            Mark as featured
+          </label>
+        </div>
 
-          {/* Categoría + Fecha */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="category" className={labelClass}>
-                Categoría *
-              </label>
-              <input
-                id="category"
-                name="category"
-                type="text"
-                className={inputClass}
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                required
-              />
-              {fieldErrors.category && (
-                <p className={errorClass}>{fieldErrors.category}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="date" className={labelClass}>
-                Fecha *
-              </label>
-              <input
-                id="date"
-                name="date"
-                type="date"
-                className={inputClass}
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
-              {fieldErrors.date && (
-                <p className={errorClass}>{fieldErrors.date}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Tags */}
-          <div>
-            <label htmlFor="tags" className={labelClass}>
-              Tags{" "}
-              <span className="text-foreground-secondary/60 font-normal">
-                (separados por coma)
-              </span>
-            </label>
-            <input
-              id="tags"
-              name="tags"
-              type="text"
-              className={inputClass}
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-            />
-          </div>
-
-          {/* Featured */}
-          <div className="flex items-center gap-3">
-            <input
-              id="featured"
-              name="featured"
-              type="checkbox"
-              className="w-4 h-4 rounded border-divider text-primary-500 focus:ring-primary-500 focus:ring-offset-0 accent-primary-500 cursor-pointer"
-              checked={featured}
-              onChange={(e) => setFeatured(e.target.checked)}
-            />
-            <label
-              htmlFor="featured"
-              className="text-sm text-foreground cursor-pointer select-none"
-            >
-              Marcar como post destacado
-            </label>
-          </div>
-
-          {/* Botones */}
-          <div className="flex items-center gap-3 pt-2">
-            <Button
-              type="submit"
-              color="primary"
-              variant="solid"
-              size="md"
-              radius="lg"
-              isLoading={isLoading}
-              disabled={isLoading}
-            >
-              Publicar post
-            </Button>
-            <Button
-              type="button"
-              color="default"
-              variant="ghost"
-              size="md"
-              radius="lg"
-              href="/blog"
-              disabled={isLoading}
-            >
-              Cancelar
-            </Button>
-          </div>
-        </motion.form>
-      </div>
-    </section>
+        <div className="flex items-center gap-3 border-t border-divider pt-6">
+          <Button
+            type="submit"
+            color="primary"
+            variant="solid"
+            radius="md"
+            isLoading={isLoading}
+            disabled={isLoading}
+          >
+            Publish post
+          </Button>
+          <Button
+            type="button"
+            color="default"
+            variant="bordered"
+            radius="md"
+            href="/blog"
+            disabled={isLoading}
+          >
+            Cancel
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useEffect, useState, useCallback } from "react";
-import { BlogCard } from "./components/BlogCard";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { PostList } from "./components/PostList";
 import { postsApi } from "@/shared/services/api.service";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { Button } from "@/shared/components/Button/Button";
 import type { Post } from "@/shared/types/api.types";
 
 export function Blog() {
@@ -39,7 +38,7 @@ export function Blog() {
         setCategories(unique);
       }
     } catch {
-      setError("No se pudieron cargar los posts. Intenta de nuevo.");
+      setError("Couldn't load posts.");
     } finally {
       setIsLoading(false);
     }
@@ -50,131 +49,105 @@ export function Blog() {
   }, [fetchPosts]);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.h2
-            className="text-4xl sm:text-5xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+    <div className="page-shell py-16">
+      <header className="enter">
+        <h1 className="font-serif text-[clamp(2rem,5vw,2.75rem)] font-medium leading-tight tracking-tight text-foreground">
+          Writing
+        </h1>
+        <p className="mt-3 max-w-[58ch] text-foreground-secondary">
+          Notes on frontend development, React, Next.js, and the tools I use
+          every day.
+        </p>
+        {isAuthenticated && (
+          <Link
+            href="/blog/crear"
+            className="ui-meta mt-4 inline-block text-accent underline decoration-divider underline-offset-4 hover:decoration-accent"
           >
-            Blog
-          </motion.h2>
-          <motion.p
-            className="text-xl text-foreground-secondary max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            Thoughts, tutorials, and insights about web development, design
-            patterns, and the technologies I work with daily.
-          </motion.p>
+            New post
+          </Link>
+        )}
+      </header>
 
-          {/* Botón crear post solo para usuarios autenticados */}
-          {isAuthenticated && (
-            <motion.div
-              className="mt-6"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
-            >
-              <Button
-                href="/blog/crear"
-                color="primary"
-                variant="solid"
-                radius="lg"
-                size="md"
+      {categories.length > 1 && (
+        <nav
+          aria-label="Filter by category"
+          className="ui-meta mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-divider pb-3"
+        >
+          {categories.map((category) => {
+            const isSelected = selectedCategory === category;
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+                aria-pressed={isSelected}
+                className={`inline-flex h-9 cursor-pointer items-center transition-colors ${
+                  isSelected
+                    ? "font-medium text-accent underline decoration-2 underline-offset-4"
+                    : "text-foreground-secondary hover:text-foreground"
+                }`}
               >
-                + Crear Post
-              </Button>
-            </motion.div>
-          )}
-        </motion.div>
+                {category}
+              </button>
+            );
+          })}
+        </nav>
+      )}
 
-        {/* Category Filter */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-2 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          {categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                selectedCategory === category
-                  ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25"
-                  : "bg-default-100 dark:bg-default-800 text-default-700 dark:text-default-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Loading */}
-        {isLoading && (
-          <div className="flex justify-center items-center py-20">
-            <motion.div
-              className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
-        )}
-
-        {/* Error */}
-        {!isLoading && error && (
-          <motion.div
-            className="text-center py-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <p className="text-red-500 mb-4">{error}</p>
-            <Button
-              onClick={fetchPosts}
-              color="primary"
-              variant="bordered"
-              radius="lg"
-            >
-              Reintentar
-            </Button>
-          </motion.div>
-        )}
-
-        {/* Posts Grid */}
-        {!isLoading && !error && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post, index) => (
-              <BlogCard key={post.id} post={post} index={index} />
+      {isLoading && (
+        <>
+          <span role="status" className="sr-only">
+            Loading posts…
+          </span>
+          <ul aria-hidden="true" className="divide-y divide-divider">
+            {[0, 1, 2].map((row) => (
+              <li
+                key={row}
+                className="py-5 sm:grid sm:grid-cols-[7.5rem_1fr] sm:gap-x-8"
+              >
+                <div className="h-4 w-24 animate-pulse rounded bg-muted" />
+                <div className="mt-3 space-y-2 sm:mt-0">
+                  <div className="h-5 w-2/3 animate-pulse rounded bg-muted" />
+                  <div className="h-4 w-full animate-pulse rounded bg-muted" />
+                </div>
+              </li>
             ))}
-          </div>
-        )}
+          </ul>
+        </>
+      )}
 
-        {!isLoading && !error && posts.length === 0 && (
-          <motion.p
-            className="text-center text-foreground-secondary text-lg mt-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+      {!isLoading && error && (
+        <div className="py-10">
+          <p className="text-foreground">{error}</p>
+          <button
+            type="button"
+            onClick={fetchPosts}
+            className="ui-meta mt-2 cursor-pointer text-accent underline decoration-divider underline-offset-4 hover:decoration-accent"
           >
-            No se encontraron posts en esta categoría.
-          </motion.p>
-        )}
-      </div>
-    </section>
+            Try again
+          </button>
+        </div>
+      )}
+
+      {!isLoading && !error && posts.length === 0 && (
+        <div className="py-10">
+          <p className="text-foreground-secondary">
+            {selectedCategory === "All"
+              ? "No posts yet."
+              : `No posts in ${selectedCategory} yet.`}
+          </p>
+          {isAuthenticated && selectedCategory === "All" && (
+            <Link
+              href="/blog/crear"
+              className="ui-meta mt-2 inline-block text-accent underline decoration-divider underline-offset-4 hover:decoration-accent"
+            >
+              Write the first one
+            </Link>
+          )}
+        </div>
+      )}
+
+      {!isLoading && !error && posts.length > 0 && <PostList posts={posts} />}
+    </div>
   );
 }

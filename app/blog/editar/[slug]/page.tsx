@@ -31,7 +31,11 @@ export default function EditPostPage() {
     postsApi
       .getBySlug(params.slug)
       .then((res) => setPost(res.data))
-      .catch(() => setError("No se encontró el post o no tienes acceso."))
+      .catch(() =>
+        setError(
+          "Couldn't load this post. It may be missing, or you may not have access.",
+        ),
+      )
       .finally(() => setIsLoading(false));
   }, [isAuthenticated, params.slug]);
 
@@ -39,24 +43,28 @@ export default function EditPostPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
+      <div className="page-shell py-16">
+        <span role="status" className="sr-only">
+          Loading post…
+        </span>
+        <div
+          aria-hidden="true"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-divider border-t-accent"
+        />
       </div>
     );
   }
 
   if (error || !post) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <p className="text-foreground-secondary">
-          {error ?? "Post no encontrado."}
-        </p>
+      <div className="page-shell py-16">
+        <p className="text-foreground-secondary">{error ?? "Post not found."}</p>
         <button
           type="button"
           onClick={() => router.push("/blog")}
-          className="text-primary-500 hover:underline text-sm"
+          className="ui-meta mt-2 cursor-pointer text-accent underline decoration-divider underline-offset-4 hover:decoration-accent"
         >
-          Volver al Blog
+          All posts
         </button>
       </div>
     );

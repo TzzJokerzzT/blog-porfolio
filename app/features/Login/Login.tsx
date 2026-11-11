@@ -25,18 +25,20 @@ export function Login() {
       const res = await authApi.login({ email, password });
       const { user, accessToken, refreshToken } = res.data;
       login(user, accessToken, refreshToken);
-      router.push("/blog");
+      router.replace("/blog");
     } catch (err: unknown) {
       const apiErr = err as Error & { status?: number };
       if (apiErr.status === 401 || apiErr.status === 400) {
-        setError("Email o contraseña incorrectos.");
+        setError("Wrong email or password.");
       } else {
-        setError("Ocurrió un error. Intenta de nuevo.");
+        setError("Something went wrong. Try again.");
       }
     } finally {
       setIsLoading(false);
     }
   };
 
-  return <LoginForm onSubmit={handleSubmit} isLoading={isLoading} error={error} />;
+  return (
+    <LoginForm onSubmit={handleSubmit} isLoading={isLoading} error={error} />
+  );
 }

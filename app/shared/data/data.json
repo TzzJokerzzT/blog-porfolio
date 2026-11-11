@@ -2,58 +2,12 @@
   "basics": {
     "name": "Alexis Buelvas",
     "label": "Frontend Developer with 6+ years of experience",
-    "image": "",
     "email": "alexjesus-4856@hotmail.com",
     "summary": "Frontend Developer with 6+ years of experience, living in Cartagena, Colombia. I have worked across diverse professional environments: building web and mobile applications, mentoring other developers, and crafting performant user interfaces.",
     "social": {
       "github": "https://github.com/TzzJokerzzT",
       "linkedin": "https://linkedin.com/in/alexis-buelvas",
       "twitter": "https://x.com/Alex_Buelvas92"
-    },
-    "projects": [
-      {
-        "name": "Dashboard",
-        "description": "A dashboard to manage notes, expenses, calendar and todos list.",
-        "image": "/dashboard.png",
-        "technologies": ["Vue", "TypeScript", "Tailwind CSS", "Pinia", "Vue Router", "Vue Echarts" ],
-        "url": "https://personal-dashboard-pied.vercel.app"
-      },
-      {
-        "name": "La Carrera Imagenes",
-        "description": "Personal project to generate electonics bills using Alegra API to create bills, also can register products, customer and providers.",
-        "image": "/la-carrera-imagenes.png",
-        "technologies": ["Vue", "TypeScript", "Pinia"],
-        "url": "https://la-carrera-imagenes.vercel.app"
-      },
-      {
-        "name": "Netflix Clone",
-        "description": "A responsive web application that mimics the core features of Netflix, including user authentication, movie browsing, and video playback.",
-        "image": "/netflix.png",
-        "technologies": ["Angular", "TypeScript", "Firebase"],
-        "url": "https://netflix-clone-six-mauve.vercel.app"
-      },
-      {
-        "name": "Dino Search",
-        "description": "Real-time app to search Github Profile.",
-        "image": "/dino-search.png",
-        "technologies": ["React", "TypeScript", "Tailwind CSS", "GitHub API"],
-        "url": "https://dino-search.vercel.app"
-      },
-      {
-        "name": "Anilist",
-        "description": "Real-time app to search and save all information about anime and manga series.",
-        "image": "/anilist.png",
-        "technologies": ["Next.js", "Tailwind CSS", "Zustand", "Tanstack Query"],
-        "url": "https://anilist-anime-teal.vercel.app"
-      },
-      {
-        "name": "Startup Landing Page Template",
-        "description": "Migration form HTML, CSS and Javascript template made by https://cruip.com/solid/ to Vue 3 for free use.",
-        "image": "/solid-template.png",
-        "technologies": ["Vue", "Vue Router", "Pinia", "TypeScript", "Vite", "Anime.js", "ScrollRevelal"],
-        "url": "https://solid-vue-langin-page.vercel.app/"
-
-      }
-    ]
+    }
   }
 }
