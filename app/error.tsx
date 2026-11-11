@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/shared/components/Button/Button";
+import Link from "next/link";
 
 export default function Error({
   reset,
@@ -9,34 +9,27 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-foreground mb-4">
-          Something went wrong
-        </h2>
-        <p className="text-foreground-secondary mb-8 max-w-md mx-auto">
-          An unexpected error occurred. Please try again.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Button
-            size="lg"
-            color="primary"
-            variant="shadow"
-            radius="lg"
-            onClick={reset}
-          >
-            Try Again
-          </Button>
-          <Button
-            size="lg"
-            color="primary"
-            variant="bordered"
-            radius="lg"
-            href="/"
-          >
-            Go Home
-          </Button>
-        </div>
+    <div className="page-shell py-24">
+      <h1 className="font-serif text-3xl font-medium tracking-tight text-foreground">
+        Something went wrong.
+      </h1>
+      <p className="mt-3 max-w-[52ch] text-foreground-secondary">
+        The page couldn&apos;t be loaded. Try again, or go back to the posts.
+      </p>
+      <div className="ui-meta mt-8 flex items-center gap-6">
+        <button
+          type="button"
+          onClick={reset}
+          className="cursor-pointer text-accent underline decoration-divider underline-offset-4 hover:decoration-accent"
+        >
+          Try again
+        </button>
+        <Link
+          href="/blog"
+          className="text-foreground-secondary transition-colors hover:text-accent"
+        >
+          Read the posts
+        </Link>
       </div>
     </div>
   );

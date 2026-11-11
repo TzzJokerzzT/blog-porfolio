@@ -1,40 +1,45 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Newsreader, Public_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/shared/components/ThemeProvider";
 import { Layout } from "./layouts/AppLayout";
 import { Analytics } from "@vercel/analytics/next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
+
+const siteDescription =
+  "Personal blog by Alexis Buelvas about frontend development, React, Next.js, TypeScript, and modern web technologies.";
 
 export const metadata: Metadata = {
   title: {
-    default: "Alexis Buelvas - Frontend Developer",
+    default: "Alexis Buelvas - Blog",
     template: "%s | Alexis Buelvas",
   },
-  description:
-    "Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+  description: siteDescription,
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Alexis Buelvas Portfolio",
-    title: "Alexis Buelvas - Frontend Developer",
-    description:
-      "Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+    siteName: "Alexis Buelvas",
+    title: "Alexis Buelvas - Blog",
+    description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alexis Buelvas - Frontend Developer",
-    description:
-      "Frontend Developer with 6+ years of experience building modern web applications with React, Next.js, TypeScript, and cutting-edge technologies.",
+    title: "Alexis Buelvas - Blog",
+    description: siteDescription,
   },
 };
 
@@ -53,9 +58,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${newsreader.variable} ${publicSans.variable}`}
+    >
       <head>
-        {/* Script para prevenir flash de tema incorrecto */}
+        {/* Aplica el tema guardado antes del primer pintado para evitar el flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -90,7 +99,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <ThemeProvider>
           <Layout>{children}</Layout>
           <Analytics />
